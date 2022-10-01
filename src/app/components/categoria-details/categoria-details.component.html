@@ -1,0 +1,58 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentCategoria.idCategoria">
+    <h4>Categoria</h4>
+    <div>
+      <label><strong>Id:</strong></label> {{ currentCategoria.idCategoria }}
+      <br>
+      <label><strong>Nombre:</strong></label> {{ currentCategoria.nombre }}
+    </div>
+
+    <a
+      class="badge badge-warning"
+      routerLink="/categorias/{{ currentCategoria.idCategoria }}"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentCategoria">
+    <br />
+    <p>Please click on a Categoria...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentCategoria.idCategoria" class="edit-form">
+    <h4>Categoria</h4>
+    <form>
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          [(ngModel)]="currentCategoria.nombre"
+          name="nombre"
+        />
+      </div>
+    </form>
+
+    <button class="badge badge-danger mr-2" (click)="deleteCategoria()">
+      Borrar
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateCategoria()"
+    >
+      Actualizar
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentCategoria.idCategoria">
+    <br />
+    <p>Cannot access this Categoria...</p>
+  </div>
+</ng-template>
